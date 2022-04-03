@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mvvm_app/data/user_data.dart';
-import 'package:mvvm_app/user_detail_page.dart';
-import 'main_logic.dart';
+import 'package:mvvm_app/view/user_detail_page.dart';
+import 'logic/main_logic.dart';
 
 final _logicProvider = StateProvider<Logic>((ref) => Logic());
 final _apiFamilyProvider = FutureProvider((ref) async {

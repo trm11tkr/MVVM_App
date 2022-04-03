@@ -1,7 +1,6 @@
 import 'dart:convert';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;
-import 'data/user_data.dart';
+import '../data/user_data.dart';
 
 class Logic {
   Future<UserData> getUsers() async {

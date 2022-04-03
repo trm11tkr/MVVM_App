@@ -6,7 +6,6 @@ class UserDetail extends StatelessWidget {
   const UserDetail({required this.user ,Key? key}) : super(key: key);
   final UserDataProfile user;
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,7 +46,7 @@ class UserDetail extends StatelessWidget {
       ),
     );
   }
-  ImageProvider backgroundImage(UserDataPicture picture) {
+  ImageProvider backgroundImage(UserDataPicture? picture) {
     if(picture != null) {
       return NetworkImage(picture.large);
     } else {
