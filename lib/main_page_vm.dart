@@ -1,0 +1,23 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:mvvm_app/data/user_data.dart';
+import 'main_logic.dart';
+
+final _logicProvider = StateProvider<Logic>((ref) => Logic());
+final _apiFamilyProvider = FutureProvider((ref) async {
+  final _logic = ref.watch(_logicProvider);
+  return await _logic.getUsers();
+});
+
+class MainPageVM {
+  late final WidgetRef _ref;
+
+  AsyncValue<UserData> userList() =>
+      _ref.watch(_apiFamilyProvider);
+
+  void setRef(WidgetRef ref) {
+    _ref = ref;
+  }
+  void onRefresh() {
+    _ref.refresh(_apiFamilyProvider);
+  }
+}
