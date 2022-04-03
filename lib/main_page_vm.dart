@@ -1,6 +1,8 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mvvm_app/data/user_data.dart';
-import 'main_logic.dart';
+import 'package:mvvm_app/view/user_detail_page.dart';
+import 'logic/main_logic.dart';
 
 final _logicProvider = StateProvider<Logic>((ref) => Logic());
 final _apiFamilyProvider = FutureProvider((ref) async {
@@ -19,5 +21,14 @@ class MainPageVM {
   }
   void onRefresh() {
     _ref.refresh(_apiFamilyProvider);
+  }
+
+  void route(UserDataProfile user, BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+          builder: (context) => UserDetail(user:user)
+      ),
+    );
   }
 }
