@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mvvm_app/user_data.dart';
+import 'package:mvvm_app/data/user_data.dart';
 
 void main() {
   String jsonData = '''

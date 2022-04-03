@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:mvvm_app/provider.dart';
 
 void main() {
   runApp(
@@ -30,29 +31,32 @@ class MyHomePage extends ConsumerWidget {
   final String title;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final userData = ref.watch(userStateProvider);
+
     return Scaffold(
       appBar: AppBar(
         title: Text(title),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
+      body: userData.when(
+          data: (user) {
+            return RefreshIndicator(
+                child: ListView.builder(
+                itemCount: user.length,
+                itemBuilder: (context, index) {
+                  return ListTile(title: Text(user[index].email));
+                }
+              ),
+              onRefresh: () async {
+                  await ref.refresh(userStateProvider);
+                  },
+            );
+          },
+        error: (error, stackTrace) =>
+            Center(
+                child: Text(error.toString())
             ),
-            Text(
-              'hello',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
-        ),
+        loading: () => const Center(child: CircularProgressIndicator()),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: (){},
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
