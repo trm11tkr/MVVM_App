@@ -33,44 +33,49 @@ class _MainPageState extends ConsumerState<MainPage> {
             child: ListView.builder(
                 itemCount: user.results.length,
                 itemBuilder: (context, index) {
-                  return Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: ListTile(
-                          title: Row(
-                            children: [
-                              CircleAvatar(
-                                backgroundImage: NetworkImage(user.results[index].picture.large),
-                              ),
-                              const SizedBox(width: 20.0),
-                              Expanded(
-                                child: Column(
-                                  crossAxisAlignment:
-                                  CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      '${user.results[index].name.title} ${user.results[index].name.first} ${user.results[index].name.last}',
-                                      style: const TextStyle(fontSize: 17.0),
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
-                                    const SizedBox(height: 10.0),
-                                    Text(
-                                      user.results[index].email.toString(),
-                                      style: const TextStyle(
-                                        fontSize: 16.0,
-                                        color: Colors.grey,
+                  return GestureDetector(
+                    onTap: () {
+                      _vm.route(user.results[index], context);
+                    },
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: ListTile(
+                            title: Row(
+                              children: [
+                                CircleAvatar(
+                                  backgroundImage: NetworkImage(user.results[index].picture.large),
+                                ),
+                                const SizedBox(width: 20.0),
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                    CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        '${user.results[index].name.title} ${user.results[index].name.first} ${user.results[index].name.last}',
+                                        style: const TextStyle(fontSize: 17.0),
                                         overflow: TextOverflow.ellipsis,
                                       ),
-                                    ),
-                                  ],
+                                      const SizedBox(height: 10.0),
+                                      Text(
+                                        user.results[index].email.toString(),
+                                        style: const TextStyle(
+                                          fontSize: 16.0,
+                                          color: Colors.grey,
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
-                        ),
-                      )
-                    ],
+                        )
+                      ],
+                    ),
                   );
                 }
             ),
