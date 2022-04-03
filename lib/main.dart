@@ -20,18 +20,18 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(title: 'Random User List'),
     );
   }
 }
 
 class MyHomePage extends ConsumerWidget {
-  MyHomePage({Key? key, required this.title}) : super(key: key);
+  const MyHomePage({Key? key, required this.title}) : super(key: key);
 
   final String title;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final userData = ref.watch(userStateProvider);
+    final userData = ref.watch(apiProvider);
 
     return Scaffold(
       appBar: AppBar(
@@ -41,13 +41,13 @@ class MyHomePage extends ConsumerWidget {
           data: (user) {
             return RefreshIndicator(
                 child: ListView.builder(
-                itemCount: user.length,
+                itemCount: user.results.length,
                 itemBuilder: (context, index) {
-                  return ListTile(title: Text(user[index].email));
+                  return ListTile(title: Text(user.results[index].email));
                 }
               ),
               onRefresh: () async {
-                  await ref.refresh(userStateProvider);
+                  await ref.refresh(apiProvider);
                   },
             );
           },
